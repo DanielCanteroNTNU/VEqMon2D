@@ -1,0 +1,320 @@
+*HEADING
+	Vehicle 3A3_2_G_1_2_3_1_1
+	SI units (kg, m, s, N)
+	Abaqus reference system: 1-axis horizontal, 2-axis vertical
+**
+*PREPRINT, ECHO=YES
+**
+*PARAMETER
+	mB1 = 5000
+	mB2 = 30000
+	mB3 = 20000
+	IB1 = 4000
+	IB2 = 20000
+	IB3 = 10000
+	kS1 = 0.5e6
+	kS2 = 2e6
+	kS3 = 3e6
+	kS4 = 1e6
+	kS5 = 1e6
+	mG1 = 750
+	mG2 = 1500
+	mG3 = 2250
+	mG4 = 750
+	mG5 = 750
+	IG1 = 0
+	IG2 = 2e2
+	IG3 = 3e2
+	IG4 = 0
+	IG5 = 0
+	kT1 = 1.75e6
+	kT2 = 3.5e6
+	kT3 = 3.5e6
+	kT4 = 3.5e6
+	kT5 = 3.5e6
+	kT6 = 3.5e6
+	kT7 = 3.5e6
+	kT8 = 3.5e6
+	a1 = 0
+	a2 = 6
+	a3 = 4
+	b1 = 2
+	b2 = 5
+	d1 = -1
+	d2 = 3
+	d3 = 2
+	d4 = -2.5
+	d5 = 2.5
+	e1 = 0
+	e2 = -1
+	e3 = 1
+	e4 = -1.2
+	e5 = 0
+	e6 = 1.2
+	e7 = 0
+	e8 = 0
+	xB1 = 0
+	xB2 = xB1+b1+a2
+	xB3 = xB1+b1+a2+b2+a3
+	xS1 = xB1+d1
+	xS2 = xB1+d2
+	xS3 = xB2+d3
+	xS4 = xB3+d4
+	xS5 = xB3+d5
+	xAx1 = xS1+e1
+	xAx2 = xS2+e2
+	xAx3 = xS2+e3
+	xAx4 = xS3+e4
+	xAx5 = xS3+e5
+	xAx6 = xS3+e6
+	xAx7 = xS4+e7
+	xAx8 = xS5+e8
+	xArt1 = xB1+b1
+	H1 = 1.0
+	H2 = 2.0
+**
+*NODE, NSET=NODES_ALL
+	1, <xAx1>, <H1>, 0
+	2, <xAx2>, <H1>, 0
+	3, <xAx3>, <H1>, 0
+	4, <xAx4>, <H1>, 0
+	5, <xAx5>, <H1>, 0
+	6, <xAx6>, <H1>, 0
+	7, <xAx7>, <H1>, 0
+	8, <xAx8>, <H1>, 0
+	9, <xS2>, <H1>, 0
+	10, <xS1>, <H2>, 0
+	11, <xS2>, <H2>, 0
+	12, <xS3>, <H2>, 0
+	13, <xS4>, <H2>, 0
+	14, <xS5>, <H2>, 0
+	15, <xB1>, <H2>, 0
+	16, <xB2>, <H2>, 0
+	17, <xB3>, <H2>, 0
+	18, <xArt1>, <H2>, 0
+	19, <xArt1>, <H2>, 0
+**	
+** -- Tyre stiffness --
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T1
+	1, 1
+*SPRING, ELSET=SPRING_T1
+	2
+	<kT1>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T2
+	2, 2
+*SPRING, ELSET=SPRING_T2
+	2
+	<kT2>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T3
+	3, 3
+*SPRING, ELSET=SPRING_T3
+	2
+	<kT3>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T4
+	4, 4
+*SPRING, ELSET=SPRING_T4
+	2
+	<kT4>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T5
+	5, 5
+*SPRING, ELSET=SPRING_T5
+	2
+	<kT5>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T6
+	6, 6
+*SPRING, ELSET=SPRING_T6
+	2
+	<kT6>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T7
+	7, 7
+*SPRING, ELSET=SPRING_T7
+	2
+	<kT7>
+*ELEMENT, TYPE=SPRING1, ELSET=SPRING_T8
+	8, 8
+*SPRING, ELSET=SPRING_T8
+	2
+	<kT8>
+**
+** -- Suspension stiffness --
+*ELEMENT, TYPE=SPRING2, ELSET=SPRING_S1
+	9, 1, 10
+*SPRING, ELSET=SPRING_S1
+	2, 2
+	<kS1>
+*ELEMENT, TYPE=SPRING2, ELSET=SPRING_S2
+	10, 9, 11
+*SPRING, ELSET=SPRING_S2
+	2, 2
+	<kS2>
+*ELEMENT, TYPE=SPRING2, ELSET=SPRING_S3
+	11, 5, 12
+*SPRING, ELSET=SPRING_S3
+	2, 2
+	<kS3>
+*ELEMENT, TYPE=SPRING2, ELSET=SPRING_S4
+	12, 7, 13
+*SPRING, ELSET=SPRING_S4
+	2, 2
+	<kS4>
+*ELEMENT, TYPE=SPRING2, ELSET=SPRING_S5
+	13, 8, 14
+*SPRING, ELSET=SPRING_S5
+	2, 2
+	<kS5>
+**
+** -- Suspension Masses definition --
+*ELEMENT, TYPE=MASS, ELSET=MASS_S1
+	14, 1
+*MASS, ELSET=MASS_S1
+	<mG1>
+*ELEMENT, TYPE=MASS, ELSET=MASS_S2
+	15, 9
+*MASS, ELSET=MASS_S2
+	<mG2>
+*ELEMENT, TYPE=MASS, ELSET=MASS_S3
+	16, 5
+*MASS, ELSET=MASS_S3
+	<mG3>
+*ELEMENT, TYPE=MASS, ELSET=MASS_S4
+	17, 7
+*MASS, ELSET=MASS_S4
+	<mG4>
+*ELEMENT, TYPE=MASS, ELSET=MASS_S5
+	18, 8
+*MASS, ELSET=MASS_S5
+	<mG5>
+**
+** -- Moments of inertia of suspension --
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_S1
+	19, 1
+*ROTARY INERTIA, ELSET=INERTIA_S1
+	0, 0, <IG1>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_S2
+	20, 9
+*ROTARY INERTIA, ELSET=INERTIA_S2
+	0, 0, <IG2>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_S3
+	21, 5
+*ROTARY INERTIA, ELSET=INERTIA_S3
+	0, 0, <IG3>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_S4
+	22, 7
+*ROTARY INERTIA, ELSET=INERTIA_S4
+	0, 0, <IG4>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_S5
+	23, 8
+*ROTARY INERTIA, ELSET=INERTIA_S5
+	0, 0, <IG5>, 0, 0, 0
+**
+** -- Body masses definition --
+*ELEMENT, TYPE=MASS, ELSET=MASS_B1
+	24, 15
+*MASS, ELSET=MASS_B1
+	<mB1>
+*ELEMENT, TYPE=MASS, ELSET=MASS_B2
+	25, 16
+*MASS, ELSET=MASS_B2
+	<mB2>
+*ELEMENT, TYPE=MASS, ELSET=MASS_B3
+	26, 17
+*MASS, ELSET=MASS_B3
+	<mB3>
+**
+** -- Moments of inertia of bodies --
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_B1
+	27, 15
+*ROTARY INERTIA, ELSET=INERTIA_B1
+	0, 0, <IB1>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_B2
+	28, 16
+*ROTARY INERTIA, ELSET=INERTIA_B2
+	0, 0, <IB2>, 0, 0, 0
+*ELEMENT, TYPE=ROTARYI, ELSET=INERTIA_B3
+	29, 17
+*ROTARY INERTIA, ELSET=INERTIA_B3
+	0, 0, <IB3>, 0, 0, 0
+**
+** -- Rigid bodies as massless beams --
+*ELEMENT, TYPE=B21, ELSET=BEAM_ELEMENTS
+	30, 2, 9
+	31, 9, 3
+	32, 4, 5
+	33, 5, 6
+	34, 10, 15
+	35, 15, 18
+	36, 18, 11
+	37, 19, 16
+	38, 16, 12
+	39, 13, 17
+	40, 17, 14
+*MATERIAL, NAME=RIGID_ELEMENTS
+*DENSITY
+	0.0
+*ELASTIC
+	1e15, 0.0
+*BEAM SECTION, ELSET=BEAM_ELEMENTS, MATERIAL=RIGID_ELEMENTS, SECTION=PIPE
+  1.0,   0.5,
+**
+** -- Articulation definition --
+*MPC
+	PIN, 18, 19
+**
+** -- Boundary conditions --
+*BOUNDARY
+	1, 1
+	1, 3
+	2, 1
+	2, 3
+	3, 1
+	3, 3
+	4, 1
+	4, 3
+	5, 1
+	5, 3
+	6, 1
+	6, 3
+	7, 1
+	7, 3
+	8, 1
+	8, 3
+	9, 1
+	9, 3
+	10, 1
+	10, 3
+	11, 1
+	11, 3
+	12, 1
+	12, 3
+	13, 1
+	13, 3
+	14, 1
+	14, 3
+	15, 1
+	15, 3
+	16, 1
+	16, 3
+	17, 1
+	17, 3
+	18, 1
+	18, 3
+	19, 1
+	19, 3
+**
+** --------------------------------------------------------
+**
+** ---- STEP-1 ----
+**
+*STEP, NAME=STEP-1
+Natural frequencies calculation
+**
+*FREQUENCY
+	, ,100
+**
+*OUTPUT, FIELD
+**
+*END STEP
+**	
+** --------------------------------------------------------
+**
+** ---- End of .INP file ----**

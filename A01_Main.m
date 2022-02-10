@@ -1,0 +1,25 @@
+% Main scritp for VEqMon2D tool
+
+clear; clc;
+
+% -- Particular values --
+% num_axles_per_body = Number of axles per body [Tractor, Trailer 1, Trailer 2,...]
+% num_axles_per_group = Number of axles per group
+% with_articulation = Array with 1/0 flag to indicate the presence of articulation
+
+% Validation example: Truck with 3 bodies
+%   First body has 1 single axle and a tandem axle
+%   Second body is articulated with body 1. It has also a tridem axle
+%   Third body is a towed trailer with 2 individual axles
+Inputs.num_axles_per_body = [3,3,2];
+Inputs.num_axles_per_group = [1,2,3,1,1];
+Inputs.with_articulation = [1,0];
+
+% -- Saving options --
+Save.on = 1;    % Save results into a script
+Save.path_name = 'Results\';
+
+% -- Calculations and function generation --
+B01_calculations(Inputs,Save);
+
+% ---- End of script ----
