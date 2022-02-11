@@ -303,22 +303,24 @@ for body_num = 1:num_bodies
             EQ(eq_num,2) = EQ(eq_num,2) + F_from_suspension(group_num);
         end % for group_num = Body(body_num).group_inds
         % Addition of articulation forces
-        if body_num == 1
-            if Inputs.with_articulation(1) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - R(1);
-            end % if Inputs.with_articulation == 1
-        elseif body_num == num_bodies
-            if Inputs.with_articulation(end) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) + R(end-1);
-            end % if Inputs.with_articulation == 1
-        else
-            if Inputs.with_articulation(body_num-1) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) + R(body_num-1);
-            end % if Inputs.with_articulation == 1
-            if Inputs.with_articulation(body_num) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - R(body_num);
-            end % if Inputs.with_articulation == 1
-        end % if body_num == 1
+        if num_bodies > 1
+            if body_num == 1
+                if Inputs.with_articulation(1) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - R(1);
+                end % if Inputs.with_articulation == 1
+            elseif body_num == num_bodies
+                if Inputs.with_articulation(end) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) + R(end-1);
+                end % if Inputs.with_articulation == 1
+            else
+                if Inputs.with_articulation(body_num-1) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) + R(body_num-1);
+                end % if Inputs.with_articulation == 1
+                if Inputs.with_articulation(body_num) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - R(body_num);
+                end % if Inputs.with_articulation == 1
+            end % if body_num == 1
+        end % if num_bodies > 1
     end % if include_eq == 1
 end % for body_num = 1:num_bodies
 clear body_num group_num include_eq
@@ -335,22 +337,24 @@ for body_num = 1:num_bodies
             EQ(eq_num,2) = EQ(eq_num,2) + dj(group_num)*F_from_suspension(group_num);
         end % for group_num = Body(body_num).group_inds
         % Addition of moments due to articulation forces
-        if body_num == 1
-            if Inputs.with_articulation(1) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - bi(1)*R(1);
-            end % if Inputs.with_articulation == 1
-        elseif body_num == num_bodies
-            if Inputs.with_articulation(end) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - ai(end)*R(end-1);
-            end % if Inputs.with_articulation == 1
-        else
-            if Inputs.with_articulation(body_num-1) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - ai(body_num)*R(body_num-1);
-            end % if Inputs.with_articulation == 1
-            if Inputs.with_articulation(body_num) == 1
-                EQ(eq_num,2) = EQ(eq_num,2) - bi(body_num)*R(body_num);
-            end % if Inputs.with_articulation == 1
-        end % if body_num == 1
+        if num_bodies > 1
+            if body_num == 1
+                if Inputs.with_articulation(1) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - bi(1)*R(1);
+                end % if Inputs.with_articulation == 1
+            elseif body_num == num_bodies
+                if Inputs.with_articulation(end) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - ai(end)*R(end-1);
+                end % if Inputs.with_articulation == 1
+            else
+                if Inputs.with_articulation(body_num-1) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - ai(body_num)*R(body_num-1);
+                end % if Inputs.with_articulation == 1
+                if Inputs.with_articulation(body_num) == 1
+                    EQ(eq_num,2) = EQ(eq_num,2) - bi(body_num)*R(body_num);
+                end % if Inputs.with_articulation == 1
+            end % if body_num == 1
+        end % if num_bodies > 1
     end % if any
 end % for body_num = 1:num_bodies
 clear body_num group_num
