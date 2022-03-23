@@ -723,13 +723,13 @@ if Save.on == 1
     field_names = fields(Veh.Prop);
     for field_num = 1:length(field_names)
         counter = 0;
-        for ele_num = 1:length(Veh.Prop.(field_names{field_num}))
+        for ele_num = length(Veh.Prop.(field_names{field_num})):-1:1
             oldstring = char(Veh.Prop.(field_names{field_num})(ele_num));
             counter = counter + sum(count(myCell,oldstring));
             newstring = ['Veh.Prop.',field_names{field_num},'(',num2str(ele_num),')'];
             myCell = [{myCell{1:line_to_replace_from-1}},...
                 replace({myCell{line_to_replace_from:end}},oldstring,newstring)];
-        end % for ele_num = 1:length(Veh.Prop.(field_names{field_num}))
+        end % for ele_num = length(Veh.Prop.(field_names{field_num})):-1:1
         % Removing unused variables
         if counter == length(Veh.Prop.(field_names{field_num}))
             myCell = {myCell{count(myCell,['% Veh.Prop.',field_names{field_num}])==0}};
