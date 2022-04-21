@@ -467,25 +467,6 @@ end % for DOF_num = 1:num_DOF
 syms grav
 F_static_no_grav = M*DOF_with_grav';
 
-% Wheel contact force
-% If we define the profile under each wheel and its derivatives as
-%   rk = [r1 r2 r3 r4 ...];
-%   rk_d = [r1_d r2_d r3_d r4_d ...];
-% and corresponding wheel displacements
-%   wk = [w1, w2, w3, w4, ...];
-%   wk_d = [w1_d, w2_d, w3_d, w4_d, ...];
-% Then the contact force of the vehicle on the floor is:
-%   F_contact = Fc * (wk_d - rk_d) + Fk * (wk - rk)
-Fk = (rk*0)'*(rk*0); Fc = Fk;   % Initialize
-for i = 1:num_axles
-    for j = 1:num_axles
-        aux1 = zeros(1,num_axles);
-        aux1(j) = 1;
-        Fk(i,j) = subs(F(num_DOF-num_axles+i),rk_and_rk_d_cell,{[aux1,zeros(1,num_axles)]});
-        Fc(i,j) = subs(F(num_DOF-num_axles+i),rk_and_rk_d_cell,{[zeros(1,num_axles),aux1]});
-    end % for j = 1:num_axles
-end % for i = 1:num_axles
-
 % Nodal displacements to wheel displacements
 N2w  = (ek*0)'*(DOF*0);
 for wheel_num = 1:sum(Inputs.num_axles_per_group)
@@ -686,35 +667,6 @@ if Save.on == 1
     
     % One empty line
     myCell{line} = ' '; line = line + 1;
-
-    % Contact Force
-    myCell{line} = '% -- Contact Force calculation matrices --'; line = line + 1;
-    myCell{line} = 'Veh.Contact.expression_txt = ''F_contact = Fk*(wk-rk) + Fc*(wk_d-rk_d)'';'; line = line + 1;
-    myCell{line} = '% where '; line = line + 1;
-    myCell{line} = '%     wk = Vertical displacement of wheel'; line = line + 1;
-    myCell{line} = '%     rk = Profile elevation'; line = line + 1;
-    myCell{line} = '%     wk_d = First time derivative of vertical displacement of wheel'; line = line + 1;
-    myCell{line} = '%     rk_d = First time derivative of profile elevation'; line = line + 1;
-    myCell{line} = ' '; line = line + 1;
-    for matrix2print = ['k','c']
-        matrix2print = ['F',matrix2print];
-        % Matrix name
-        myCell{line} = ['Veh.Contact.',matrix2print,' = ...']; line = line + 1;
-        eval(['A = ',matrix2print,';']);
-        % First row of matrix
-        string2add = mychar(A(1,:));
-        myCell{line} = [blanks(4),'[',string2add,'; ...']; line = line + 1;
-        % Following rows of matrix
-        for row_num = 2:size(A,1)-1
-            string2add = mychar(A(row_num,:));
-            myCell{line} = [blanks(4),string2add,'; ...']; line = line + 1;
-        end % for row_num = 2:size(A,1)
-        % Last row of matrix
-        string2add = mychar(A(end,:));
-        myCell{line} = [blanks(4),string2add,'];'];line = line + 1;
-        % One empty line
-        myCell{line} = ' '; line = line + 1;
-    end % for matrix2print = {'Fk','Fc'}
 
     % End of function
     myCell{line} = '% ---- End of function ----';
