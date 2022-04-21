@@ -7,6 +7,11 @@ clear; clc;
 % num_axles_per_group = Number of axles per group
 % with_articulation = Array with 1/0 flag to indicate the presence of articulation
 
+% % Initial example: Simple 2-axle truck
+% Inputs.num_axles_per_body = 2;
+% Inputs.num_axles_per_group = [1,1];
+% Inputs.with_articulation = [];
+
 % Validation example: Truck with 3 bodies
 %   First body has 1 single axle and a tandem axle
 %   Second body is articulated with body 1. It has also a tridem axle
