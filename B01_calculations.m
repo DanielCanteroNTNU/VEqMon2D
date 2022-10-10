@@ -276,7 +276,11 @@ for axle_num = 1:num_axles
 end % for axle_num = 1:num_axles
 clear group_num body_num
 ax_dist = ax_dist-ax_dist(1);
-ax_sp = ax_dist(2:end)-ax_dist(1:end-1); ax_sp(2:end+1) = ax_sp; ax_sp(1) = ax_sp(1)*0;
+if num_axles == 1
+    ax_sp = 0;
+else
+    ax_sp = ax_dist(2:end)-ax_dist(1:end-1); ax_sp(2:end+1) = ax_sp; ax_sp(1) = ax_sp(1)*0;
+end % if num_axles == 1
 
 % ---------------------- Equations of motion ------------------------------
 % Each side of the n equation of motion is saved in separate vector cells
@@ -655,15 +659,19 @@ if Save.on == 1
     myCell{line} = '% -- Nodal disp. to wheel disp. relation --'; line = line + 1;
     myCell{line} = 'Veh.SysM.N2w = ...'; line = line + 1;
     string2add = mychar(N2w(1,:));
-    myCell{line} = [blanks(4),'[',string2add,'; ...']; line = line + 1;
-    % Following rows of matrix
-    for row_num = 2:size(N2w,1)-1
-        string2add = mychar(N2w(row_num,:));
-        myCell{line} = [blanks(4),string2add,'; ...']; line = line + 1;
-    end % for row_num = 2:size(N2w,1)
-    % Last row of matrix
-    string2add = mychar(N2w(end,:));
-    myCell{line} = [blanks(4),string2add,'];'];line = line + 1;
+    if num_axles == 1
+        myCell{line} = [blanks(4),string2add,';']; line = line + 1;
+    else
+        myCell{line} = [blanks(4),'[',string2add,'; ...']; line = line + 1;
+        % Following rows of matrix
+        for row_num = 2:size(N2w,1)-1
+            string2add = mychar(N2w(row_num,:));
+            myCell{line} = [blanks(4),string2add,'; ...']; line = line + 1;
+        end % for row_num = 2:size(N2w,1)
+        % Last row of matrix
+        string2add = mychar(N2w(end,:));
+        myCell{line} = [blanks(4),string2add,'];']; line = line + 1;
+    end % if num_axles == 1
     
     % One empty line
     myCell{line} = ' '; line = line + 1;
