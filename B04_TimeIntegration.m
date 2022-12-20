@@ -59,7 +59,7 @@ F_ext = Veh.SysM.N2w'*F_ext;
 for t = 1:Calc.Solver.num_t-1
 
     % ---- Vehicle System ----
-    % Newmark-beta scheme (As seen in B014)
+    % Newmark-beta scheme
     A = Sol.Veh.U(:,t)/(Calc.Solver.NewMark.beta*Calc.Solver.dt^2) + ...
             Sol.Veh.V(:,t)/(Calc.Solver.NewMark.beta*Calc.Solver.dt) + ...
             Sol.Veh.A(:,t)*(1/(2*Calc.Solver.NewMark.beta)-1);
