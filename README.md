@@ -3,4 +3,4 @@ Matlab script to generate analytical expression of the equations of motion of pl
 
 For additional information see the published article:
 "VEqMon2D—Equations of motion generation tool of 2D vehicles with Matlab" in SofwareX (Elsevier):
-https://www.sciencedirect.com/science/article/pii/S2352711022000693
+https://www.sciencedirect.com/science/article/pii/S2352711022000693 (Open Access)
