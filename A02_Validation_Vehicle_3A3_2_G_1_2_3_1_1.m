@@ -2,6 +2,19 @@
 % properties and comparing them to the modal analysis of a separately 
 % developed vehicle model in Abaqus.
 
+% *************************************************************************
+% *** Script part of VEqMon2D tool for Matlab environment.              ***
+% *** Licensed under the GNU General Public License v3.0                ***
+% *** Author: Daniel Cantero (daniel.cantero@ntnu.no)                   ***
+% *** For help, modifications, and collaboration contact the author.    ***
+% ***                                                                   ***
+% *** If you found this tool useful, please cite:                       ***
+% *** D. Cantero. VEqMon2D - Equations of motion generation tool of 2D  ***
+% *** vehicles with Matlab, SoftwareX, Volume 19, 2022.                 ***
+% ***   DOI: https://doi.org/10.1016/j.softx.2022.101103                ***
+% ***                                                                   ***
+% *************************************************************************
+
 % Vehicle model: Vehicle_3A3_2_G_1_2_3_1_1
 
 % The frequencies have been calculated using the Abaqus model
